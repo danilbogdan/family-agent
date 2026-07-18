@@ -1,0 +1,55 @@
+[project]
+name = "family-bot"
+version = "0.1.0"
+description = "Family Telegram bot with YAML-spec agents"
+requires-python = ">=3.13,<4.0"
+dependencies = [
+    "fastapi[standard]>=0.114.2,<1.0.0",
+    "python-multipart>=0.0.7,<1.0.0",
+    "pydantic>=2.0",
+    "pydantic-settings>=2.2.1,<3.0.0",
+    "pydantic-ai>=0.0.14",
+    "python-telegram-bot>=20.7",
+    "httpx>=0.25.1,<1.0.0",
+    "pyyaml>=6.0",
+    "telegramify-markdown>=0.5.0",
+    "google-genai>=1.0.0",
+    "tenacity>=8.2.3,<9.0.0",
+    "duckduckgo-search>=8.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=7.4.3,<8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "mypy>=1.8.0,<2.0.0",
+    "ruff>=0.2.2,<1.0.0",
+    "pre-commit>=3.6,<4.0",
+    "coverage>=7.4.3,<8.0.0",
+    "types-pyyaml>=6.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.mypy]
+strict = true
+exclude = ["venv", ".venv"]
+disable_error_code = ["import-untyped", "no-any-return", "call-arg"]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+exclude = ["skills"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "C4", "UP", "ARG001", "T201"]
+ignore = ["E501", "ANN", "B008", "W191", "B904"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
